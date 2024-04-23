@@ -14,6 +14,7 @@ user_route.get('/register', userController.loadRegister);
 user_route.post('/verifyRegister', userController.loadVerifyRegister)
 user_route.post('/verifyLogin', userController.loadVerifyLogin)
 user_route.get('/home', userController.loadHome)
+user_route.get('/add-project', userController.loadnewProject)
 
 user_route.post('/addTodo', userController.AddTodo)
 

@@ -75,7 +75,7 @@ const loadVerifyRegister = async(req,res)=>{
 
 const loadHome = async(req,res)=>{
     try{
-        const todoList = await ToDo.find();
+        
         res.render('home',{todoList});
     }catch(error){
         console.log(error.message);
@@ -116,7 +116,16 @@ const AddTodo = async(req,res)=>{
 }
 
 
+// navigating to new project
 
+const loadnewProject = async(req,res)=>{
+    try{
+        const todoList = await ToDo.find();
+        res.render('newProject',{todoList})
+    }catch(error){
+        console.log(error.message)
+    }
+}
 
 
 
@@ -128,5 +137,7 @@ module.exports={
     loadVerifyRegister,
     loadVerifyLogin,
     loadHome,
-    AddTodo
+    AddTodo,
+    loadnewProject
+
 }
