@@ -75,7 +75,8 @@ const loadVerifyRegister = async(req,res)=>{
 
 const loadHome = async(req,res)=>{
     try{
-        res.render('home');
+        const todoList = await ToDo.find();
+        res.render('home',{todoList});
     }catch(error){
         console.log(error.message);
     }
@@ -87,7 +88,8 @@ const AddTodo = async(req,res)=>{
     try{
 
         const task = req.body.task;
-
+        const desc = req.body.desc;
+        const status = req.body.status;
         const existingtask = await ToDo.findOne({task: task})
         if(existingtask){
             return res.status(400).json({ message: "task already exists." });
@@ -96,7 +98,10 @@ const AddTodo = async(req,res)=>{
 
         const TodoData = new ToDo({
             
-           task:task
+           task:task, 
+           desc: desc,
+           status: status
+
             
         })
 

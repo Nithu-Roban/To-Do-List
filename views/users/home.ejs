@@ -35,12 +35,65 @@
             <div class="mb-3">
                 <label for="todo-input" class="form-label">New Todo</label>
                 <input type="text" class="form-control" id="todo-input" name="task" required>
+
+                <label for="todo-desc" class="form-label">Description</label>
+                <input type="text" class="form-control" id="todo-input" name="desc" required>
+
+                <label for="todo-status" class="form-label">Status</label> <br>
+                <select name="status" id="status" style="width: 100px;">
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Add Todo</button>
         </form>
-        <ul class="todo-list mt-4">
-            <!-- Todo items will be dynamically added here -->
-        </ul>
+        <!-- <ul class="todo-list mt-4">
+           
+            
+                <% todoList.forEach(todo => { %>
+                    <li>
+                        <input type="checkbox" <% if (todo.completed) { %> checked <% } %> disabled>
+                        <span><%= todo.task %></span>
+                        <span><%= todo.desc %></span>
+                        <span><%= todo.status %></span>
+                        <button class="btn btn-warning" data-id="<%= todo._id %>">Update</button>
+                        <button class="btn btn-danger" data-id="<%= todo._id %>">Remove</button>
+                        <button class="btn btn-success" data-id="<%= todo._id %>">Complete</button>
+                    </li>
+                <% }) %>
+            
+            
+
+        </ul> -->
+        <table class="table todo-table mt-4">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Task</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% todoList.forEach(todo => { %>
+                    <tr>
+                        <td><input type="checkbox" <% if (todo.completed) { %> checked <% } %> disabled></td>
+                        <td><%= todo.task %></td>
+                        <td><%= todo.desc %></td>
+                        <td><%= todo.status %></td>
+                        <td>
+                            <button class="btn btn-warning update-btn" data-id="<%= todo._id %>">Update</button>
+                            <button class="btn btn-danger remove-btn" data-id="<%= todo._id %>">Remove</button>
+                            <% if (!todo.completed) { %>
+                                <button class="btn btn-success complete-btn" data-id="<%= todo._id %>">Complete</button>
+                            <% } %>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        
     </div>
 
     <!-- Bootstrap JS and jQuery -->
