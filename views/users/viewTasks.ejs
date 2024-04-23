@@ -56,9 +56,9 @@
                                         <td><%= task.desc %></td>
                                         <td><%= task.status %></td>
                                         <td>
-                                            <button class="btn btn-warning update-btn">Update</button>
-                                            <button class="btn btn-danger remove-btn">Remove</button>
-                                            <button class="btn btn-success">Complete</button>
+                                            <a href="/taskUpdate" class="btn btn-warning update-btn">Update</a>
+                                            <a href="/taskremove" class="btn btn-danger remove-btn">Remove</a>
+                                            <a href="/taskComplete" class="btn btn-success">Complete</a>
                                         </td>
                                     </tr>
                                 <% }); %>
@@ -93,8 +93,8 @@
                                     <td><%= task.desc %></td>
                                     <td><%= task.status %></td>
                                     <td>
-                                        <button class="btn btn-warning update-btn">Update</button>
-                                        <button class="btn btn-danger remove-btn">Remove</button>
+                                        <a href="" class="btn btn-warning update-btn">Update</a>
+                                        <a href="" class="btn btn-danger remove-btn">Remove</a>
                                         
                                     </td>
                                 </tr>

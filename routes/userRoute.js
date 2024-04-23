@@ -20,4 +20,7 @@ user_route.post('/addNewProject', userController.load_addNewProject)
 user_route.get('/addTask', userController.loadAddTask)
 user_route.get('/viewTasks', userController.loadViewTasks)
 
+
+user_route.post('/taskUpdate', userController.loadTaskUpdate)
+
 module.exports = user_route;

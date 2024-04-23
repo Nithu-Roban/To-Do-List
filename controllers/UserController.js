@@ -156,6 +156,16 @@ try{
 }
    
 }
+
+
+const loadTaskUpdate = async(req,res)=>{
+    try{
+        
+
+    }catch(error){
+        console.log(error.message)
+    }
+}
 module.exports={
     loadLogin,
     loadRegister,
@@ -165,6 +175,7 @@ module.exports={
     load_addNewProject,
     loadnewProject,
     loadAddTask,
-    loadViewTasks
+    loadViewTasks,
+    loadTaskUpdate
 
 }
