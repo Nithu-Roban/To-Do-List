@@ -16,7 +16,8 @@ user_route.post('/verifyLogin', userController.loadVerifyLogin)
 user_route.get('/home', userController.loadHome)
 user_route.get('/add-project', userController.loadnewProject)
 
-user_route.post('/addTodo', userController.AddTodo)
-
+user_route.post('/addNewProject', userController.load_addNewProject)
+user_route.get('/addTask', userController.loadAddTask)
+user_route.get('/viewTasks', userController.loadViewTasks)
 
 module.exports = user_route;

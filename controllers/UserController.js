@@ -76,7 +76,7 @@ const loadVerifyRegister = async(req,res)=>{
 const loadHome = async(req,res)=>{
     try{
         
-        res.render('home',{todoList});
+        res.render('home');
     }catch(error){
         console.log(error.message);
     }
@@ -84,9 +84,11 @@ const loadHome = async(req,res)=>{
 
 
 
-const AddTodo = async(req,res)=>{
+const load_addNewProject = async(req,res)=>{
     try{
 
+        const project = req.body.project;
+        const newTasks = [];
         const task = req.body.task;
         const desc = req.body.desc;
         const status = req.body.status;
@@ -95,15 +97,14 @@ const AddTodo = async(req,res)=>{
             return res.status(400).json({ message: "task already exists." });
         }
         
-
+        
+       
         const TodoData = new ToDo({
-            
-           task:task, 
-           desc: desc,
-           status: status
-
-            
+            projectName:project,
+           newTasks:[]
+     
         })
+        TodoData.newTasks.push({task,desc,status})
 
         const Tododata= await TodoData.save();
         console.log(Tododata);
@@ -120,8 +121,8 @@ const AddTodo = async(req,res)=>{
 
 const loadnewProject = async(req,res)=>{
     try{
-        const todoList = await ToDo.find();
-        res.render('newProject',{todoList})
+        
+        res.render('newProject')
     }catch(error){
         console.log(error.message)
     }
@@ -129,15 +130,41 @@ const loadnewProject = async(req,res)=>{
 
 
 
+// add task page load
+
+const loadAddTask = async(req,res)=>{
+    try{
+        const project = req.query.project;
+        res.render('addTasks',{project})
+    }catch(error){
+        console.log(error.message)
+    }
+}
 
 
+const loadViewTasks = async(req,res)=>{
+try{
+    const project = "Project 1";
+    const todoList = await ToDo.find({projectName:project});
+    console.log(project)
+    const status = "completed";
+    const todoCompletedList = await ToDo.find({projectName:project,status:status})
+
+    res.render('viewTasks', {todoList,todoCompletedList})
+}catch(error){
+    console.log(error.message)
+}
+   
+}
 module.exports={
     loadLogin,
     loadRegister,
     loadVerifyRegister,
     loadVerifyLogin,
     loadHome,
-    AddTodo,
-    loadnewProject
+    load_addNewProject,
+    loadnewProject,
+    loadAddTask,
+    loadViewTasks
 
 }

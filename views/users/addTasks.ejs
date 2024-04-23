@@ -31,23 +31,33 @@
 <body>
     <div class="container">
         <h1 class="text-center mb-4">Todo List</h1>
-        <form id="todo-form" action="/addTask" method="get" >
-            <div class="mb-3" >
+        <form id="todo-form" action="/addNewproject" method="post">
+            <div class="mb-3">
 
                 <!-- adding new project name -->
                 <label for="todo-input" class="form-label"> Project Name</label>
-                <input type="text" class="form-control" id="todo-input" name="project" >
-                <br>
-                <button type="submit" class="btn btn-secondary">Add Todo <br></button>
-                
-                
-            </div>     
+                <input type="text" class="form-control" id="todo-input" name="project"  value="<%= project %>" readonly>
 
+                <br><br><h2 style="text-align: center;">Add New task</h2>
+                <label for="todo-input" class="form-label"> Task Name</label>
+                <input type="text" class="form-control" id="todo-input" name="task"  required>
+
+                <label for="todo-input" class="form-label">Desciption </label>
+                <input type="text" class="form-control" id="todo-input" name="desc" required>
+
+                <label for="todo-input" class="form-label">Status</label><br>
+                <select name="status" id="status">
+                    <option value="pending">pending</option>
+                    <option value="completed">completed</option>
+                </select>
+                <br><br>
+                <button type="submit" class="btn btn-primary">Add Task</button><br>
+               
+               
+
+
+            
         </form>
-        <a href="/viewTasks"><button type="submit" class="btn btn-secondary"> View Tasks</button></a> <br>
-        <br><br>
-
-        
 
         
     </div>
