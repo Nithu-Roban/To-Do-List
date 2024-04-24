@@ -21,6 +21,7 @@ user_route.get('/addTask', userController.loadAddTask)
 user_route.get('/viewTasks', userController.loadViewTasks)
 
 
-user_route.post('/taskUpdate', userController.loadTaskUpdate)
+user_route.get('/taskUpdate', userController.loadTaskUpdate)
+user_route.post('/verifyUpdateTask', userController.loadverifyUpdateTask)
 
 module.exports = user_route;

@@ -56,7 +56,7 @@
                                         <td><%= task.desc %></td>
                                         <td><%= task.status %></td>
                                         <td>
-                                            <a href="/taskUpdate" class="btn btn-warning update-btn">Update</a>
+                                            <a href="/taskUpdate?project=<%= project.projectName%>&task=<%= task.task%>" class="btn btn-warning update-btn">Update</a>
                                             <a href="/taskremove" class="btn btn-danger remove-btn">Remove</a>
                                             <a href="/taskComplete" class="btn btn-success">Complete</a>
                                         </td>

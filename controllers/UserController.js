@@ -83,39 +83,35 @@ const loadHome = async(req,res)=>{
 }
 
 
-
-const load_addNewProject = async(req,res)=>{
-    try{
-
-        const project = req.body.project;
-        const newTasks = [];
+// add new task to the project
+const load_addNewProject = async (req, res) => {
+    try {
+        const projectName = req.body.project;
         const task = req.body.task;
         const desc = req.body.desc;
         const status = req.body.status;
-        const existingtask = await ToDo.findOne({task: task})
-        if(existingtask){
-            return res.status(400).json({ message: "task already exists." });
+
+        // Find the project by its name
+        const existingProject = await ToDo.findOne({ projectName: projectName });
+
+        // Check if the task already exists for that project
+        const existingTask = existingProject.newTasks.find(t => t.task === task);
+        if (existingTask) {
+            return res.status(400).json({ message: "Task already exists." });
         }
-        
-        
-       
-        const TodoData = new ToDo({
-            projectName:project,
-           newTasks:[]
-     
-        })
-        TodoData.newTasks.push({task,desc,status})
 
-        const Tododata= await TodoData.save();
-        console.log(Tododata);
-        
+        // If the task doesn't exist, push the new task into the newTasks array
+        existingProject.newTasks.push({ task: task, desc: desc, status: status });
+
+        // Save the updated project back to the database
+        await existingProject.save();
+
         res.redirect('/home');
-
-    }catch(error){
+    } catch (error) {
         console.log(error.message);
+        res.status(500).send("Internal Server Error");
     }
 }
-
 
 // navigating to new project
 
@@ -135,7 +131,20 @@ const loadnewProject = async(req,res)=>{
 const loadAddTask = async(req,res)=>{
     try{
         const project = req.query.project;
-        res.render('addTasks',{project})
+        const existingProject = await ToDo.findOne({projectName: project})
+        if(existingProject){
+            return res.render('addTasks',{projectdata:project})
+        }
+                
+        const projectData = new ToDo({
+            projectName:project
+          
+        })
+        
+        const projectdata= await projectData.save();
+        console.log(projectdata);
+        
+        res.render('addTasks',{projectdata})
     }catch(error){
         console.log(error.message)
     }
@@ -146,7 +155,7 @@ const loadViewTasks = async(req,res)=>{
 try{
     const project = "Project 1";
     const todoList = await ToDo.find({projectName:project});
-    console.log(project)
+    
     const status = "completed";
     const todoCompletedList = await ToDo.find({projectName:project,status:status})
 
@@ -160,8 +169,28 @@ try{
 
 const loadTaskUpdate = async(req,res)=>{
     try{
-        // not completed
+        const task= req.query.task;
+        const project = req.query.project;
+        
 
+        const upTask = await ToDo.findOne({projectName:project,"newTasks.task":task})
+        // console.log(task, project)
+        res.render('updateTask',{project:project,upTask:task})
+    }catch(error){
+        console.log(error.message)
+    }
+}
+
+
+// updating query not completed
+
+const loadverifyUpdateTask= async(req,res)=>{
+    try{
+        const task = req.body.task;
+        const desc= req.body.desc;
+        const status = req.body.status;
+        console.log(task,desc,status)
+        res.redirect('/home')
     }catch(error){
         console.log(error.message)
     }
@@ -176,6 +205,7 @@ module.exports={
     loadnewProject,
     loadAddTask,
     loadViewTasks,
-    loadTaskUpdate
+    loadTaskUpdate,
+    loadverifyUpdateTask
 
 }

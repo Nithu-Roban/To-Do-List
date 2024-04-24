@@ -31,19 +31,19 @@
 <body>
     <div class="container">
         <h1 class="text-center mb-4">Todo List</h1>
-        <form id="todo-form" action="/addNewproject" method="post">
+        <form id="todo-form" action="/verifyUpdateTask" method="post">
             <div class="mb-3">
 
                 <!-- adding new project name -->
                 <label for="todo-input" class="form-label"> Project Name</label>
-                <input type="text" class="form-control" id="todo-input" name="project"  value="<%= projectdata %>" readonly>
+                <input type="text" class="form-control" id="todo-input" name="project"  value="<%= project %>" readonly>
 
-                <br><br><h2 style="text-align: center;">Add New task</h2>
+                <br><br><h2 style="text-align: center;">Update task</h2>
                 <label for="todo-input" class="form-label"> Task Name</label>
-                <input type="text" class="form-control" id="todo-input" name="task"  required>
+                <input type="text" class="form-control" id="todo-input" name="task"  value="<%= upTask %>" required>
 
                 <label for="todo-input" class="form-label">Desciption </label>
-                <input type="text" class="form-control" id="todo-input" name="desc" required>
+                <input type="text" class="form-control" id="todo-input" name="desc"  required>
 
                 <label for="todo-input" class="form-label">Status</label><br>
                 <select name="status" id="status">
