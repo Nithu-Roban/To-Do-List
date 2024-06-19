@@ -153,7 +153,7 @@ const loadAddTask = async(req,res)=>{
 
 const loadViewTasks = async(req,res)=>{
 try{
-    const project = "Project 1";
+    const project = "project 1";
     const todoList = await ToDo.find({projectName:project});
     
     const status = "completed";
