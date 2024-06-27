@@ -106,7 +106,7 @@ const load_addNewProject = async (req, res) => {
         // Save the updated project back to the database
         await existingProject.save();
 
-        res.redirect('/home');
+        res.redirect('/add-project');
     } catch (error) {
         console.log(error.message);
         res.status(500).send("Internal Server Error");
@@ -128,51 +128,55 @@ const loadnewProject = async(req,res)=>{
 
 // add task page load
 
-const loadAddTask = async(req,res)=>{
-    try{
+const loadAddTask = async (req, res) => {
+    try {
         const project = req.query.project;
-        const existingProject = await ToDo.findOne({projectName: project})
-        if(existingProject){
-            return res.render('addTasks',{projectdata:project})
+        const existingProject = await ToDo.findOne({ projectName: project });
+        if (existingProject) {
+            return res.render('addTasks', { projectdata: project });
         }
-                
+
         const projectData = new ToDo({
-            projectName:project
-          
-        })
-        
-        const projectdata= await projectData.save();
+            projectName: project
+        });
+
+        const projectdata = await projectData.save();
         console.log(projectdata);
-        
-        res.render('addTasks',{projectdata})
-    }catch(error){
-        console.log(error.message)
+
+        res.render('addTasks', { projectdata });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send('Server Error');
     }
-}
+};
+
 
 
 const loadViewTasks = async(req,res)=>{
-try{
-    const project = "project 1";
-    const todoList = await ToDo.find({projectName:project});
-    
-    const status = "completed";
-    const todoCompletedList = await ToDo.find({projectName:project,status:status})
+    try {
+        const project = "my project";
+        const todoList = await ToDo.find({ projectName: project });
+        // console.log(todoList);
 
-    res.render('viewTasks', {todoList,todoCompletedList})
-}catch(error){
-    console.log(error.message)
-}
+        // Filter completed tasks within the todoList
+        const todoCompletedList = todoList.map(proj => 
+            proj.newTasks.filter(task => task.status === "completed")
+        ).flat(); // Flatten the array
+
+        res.render('viewTasks', { todoList, todoCompletedList });
+    } catch (error) {
+        console.log(error.message);
+    }
    
 }
 
 
 const loadTaskUpdate = async(req,res)=>{
     try{
-        const task= req.query.task;
+        const {task}= req.query;
         const project = req.query.project;
         
-
+        console.log(task)
         const upTask = await ToDo.findOne({projectName:project,"newTasks.task":task})
         // console.log(task, project)
         res.render('updateTask',{project:project,upTask:task})
@@ -190,11 +194,46 @@ const loadverifyUpdateTask= async(req,res)=>{
         const desc= req.body.desc;
         const status = req.body.status;
         console.log(task,desc,status)
-        res.redirect('/home')
+        const project = "my project";
+
+        // updating the db
+
+       const updatedTask= await ToDo.updateOne({projectName:project, "newTasks.task": task},{
+            $set:{
+                "newTasks.$.task": task,
+                "newTasks.$.desc": desc,
+                "newTasks.$.status":status,
+                "newTasks.$.updatedDate": new Date()
+            }
+        });
+
+        console.log(updatedTask);
+        res.redirect('/add-project');
     }catch(error){
         console.log(error.message)
     }
 }
+
+// remove the task 
+
+const loadRemoveTask = async(req,res)=>{
+    try {
+        const {project, task} = req.query;
+        const removedTask = await ToDo.updateOne({projectName:project},{
+            $pull:{newTasks:{task:task}}
+        });
+
+        console.log(removedTask);
+        res.redirect('/viewTasks')
+
+    } catch (error) {
+        console.log(error.message);
+    }
+
+}
+
+
+
 module.exports={
     loadLogin,
     loadRegister,
@@ -206,6 +245,7 @@ module.exports={
     loadAddTask,
     loadViewTasks,
     loadTaskUpdate,
-    loadverifyUpdateTask
+    loadverifyUpdateTask,
+    loadRemoveTask
 
 }

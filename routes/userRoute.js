@@ -24,4 +24,8 @@ user_route.get('/viewTasks', userController.loadViewTasks)
 user_route.get('/taskUpdate', userController.loadTaskUpdate)
 user_route.post('/verifyUpdateTask', userController.loadverifyUpdateTask)
 
+
+// remove task route
+user_route.get('/removeTask', userController.loadRemoveTask)
+
 module.exports = user_route;
