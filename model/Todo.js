@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // Define the project schema
 const ToDoSchema = new mongoose.Schema({
-    projectName: { type: String, required: true, unique: true },
+    projectName: { type: String, required: true },
     newTasks: [{
         task: { type: String, required: true },
         desc: { type: String, required: true },
