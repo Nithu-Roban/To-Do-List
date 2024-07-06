@@ -353,8 +353,7 @@ const loadSort = async(req,res)=>{
         if (sortBy === 'desc') {
             sortOrder = -1; // Change to descending order if sortBy is 'desc'
         }
-        // const TodoList = await ToDo.find({ projectName:"my project" }).sort({ "newTasks.task": sortOrder }).exec();
-        
+      
         const todoList = await ToDo.find({ projectName: project })
         .sort({ "newTasks.task": sortOrder })
         .exec();
