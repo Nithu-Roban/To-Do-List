@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table class="table todo-table mt-4">
+        <thead>
+            <tr>
+               
+                <th>Task</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (taskDetails && taskDetails.length > 0) { %>
+                <% taskDetails.forEach(function(project) { %>
+                    <% project.newTasks.forEach(function(task) { %>
+                        <tr>
+                            
+                            <td><%= task.task %></td>
+                            <td><%= task.desc %></td>
+                            <td><%= task.status %></td>
+                           
+                        </tr>
+                    <% }); %>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="4">No tasks found.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+   
+
+
+
+    <a href="/downloadFile" class="btn btn-primary"> download File </a>
+
+</body>
+</html>

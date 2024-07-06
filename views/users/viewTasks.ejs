@@ -34,6 +34,17 @@
         <form id="todo-form" action="" method="post">
             <div class="mb-3">
                 <h2>To-Do List</h2>
+                <form action="/sort" method="get">
+                    <br><label for="sort" name="sortList"> Sort the list</label>
+                    <input type="hidden" name="projectName" value="my project">
+                     <select name="sortBy" id="sortBy">
+                    <option value="asc">ascending</option>
+                    <option value="desc">descending</option>
+                </select>
+                <button type="submit" class="btn btn-primary"> sort</button>
+                </form>
+               
+           
                 <table class="table todo-table mt-4">
                     <thead>
                         <tr>
@@ -106,10 +117,25 @@
                         <% } %>
                     </tbody>
                 </table>
+
+                
             </div>
 
 
         </form>
+        <a href="/downloadFile" class="btn btn-primary"> download File</a>
+
+        <!-- <form action="/sort">
+            <input type="hidden" name="projectName" value="my project">
+            <br><label for="sort" name="sortList"> Sort the list</label>
+            <select name="sortBy" id="sortBy">
+                <option value="asc">ascending</option>
+                <option value="desc">descending</option>
+            </select>
+           <button class="btn btn-primary"> sort</button>
+        </form>
+        -->
+        <br><br>
     </div>
 
     <!-- Bootstrap JS and jQuery -->

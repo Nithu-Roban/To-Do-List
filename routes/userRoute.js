@@ -28,4 +28,8 @@ user_route.post('/verifyUpdateTask', userController.loadverifyUpdateTask)
 // remove task route
 user_route.get('/removeTask', userController.loadRemoveTask)
 
+user_route.get('/listCount', userController.loadListCount);
+user_route.get('/downloadFile', userController.loadDownloadFile);
+user_route.get('/sort', userController.loadSort);
+
 module.exports = user_route;
