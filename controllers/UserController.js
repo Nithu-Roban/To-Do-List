@@ -363,8 +363,7 @@ const todoCompletedList = todoList.flatMap(proj => proj.newTasks.filter(task => 
 
 // Render viewTasks.ejs template with sorted todoList and todoCompletedList
 res.redirect('/viewTasks', { todoList, todoCompletedList });
-        // console.log(TodoList);
-        // res.redirect('/viewTasks',{TodoList});
+      
 
     }catch(error){
         console.log(error.message)
